@@ -1,0 +1,5 @@
+import { analytics, outputs, references, requests, reviews, settings } from '../data/mockData';
+const check=()=>{if(!settings.use_mock_data && !settings.sheet_endpoint_url) throw new Error('لا يوجد Sheet endpoint. فعّل Mock Data أو أضف الرابط.');};
+export const fetchRequests=async()=>{check();return requests}; export const createRequest=async(r:any)=>{requests.unshift(r);return r}; export const updateRequestStatus=async(id:string,status:string)=>{const x=requests.find(r=>r.request_id===id);if(x)x.status=status;return x};
+export const fetchOutputs=async()=>{check();return outputs}; export const fetchReviews=async()=>{check();return reviews}; export const createReview=async(r:any)=>{reviews.unshift(r);return r}; export const fetchAnalytics=async()=>{check();return analytics}; export const createAnalyticsRecord=async(r:any)=>{analytics.unshift(r);return r}; export const fetchReferences=async()=>{check();return references}; export const createReference=async(r:any)=>{references.unshift(r);return r};
+export const fetchDashboardStats=async()=>({total:requests.length,newCount:requests.filter(r=>r.status==='NEW').length});
